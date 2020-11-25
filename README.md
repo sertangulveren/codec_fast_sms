@@ -67,6 +67,12 @@ client.deliver(phone, message)
 puts client.response
 ```
 
+Use attributes to set other parameters:
+```ruby
+optional_parameters = { optionalParameters: { disablePermissionFilter: true } }
+client = CodecFastSms::Client.new(attributes: optional_parameters)
+```
+
 We can pass the profile argument on client initialization to use different configuration.
 ```ruby
 client = CodecFastSms::Client.new(profile: :dynamic_settings)
