@@ -14,7 +14,8 @@ module CodecFastSms
         password: ::CodecFastSms.configuration(profile).password,
         sender: ::CodecFastSms.configuration(profile).sender,
         phone: to, messageContent: message, msgSpecialId: '', isOtn: 'True',
-        headerCode: '', responseType: '3', optionalParameters: ''
+        headerCode: '', responseType: '3',
+        optionalParameters: generate_optional_parameters
       }
     end
 
@@ -26,6 +27,13 @@ module CodecFastSms
     def deliver(to, message)
       assign_recipient_information(to, message)
       perform
+    end
+
+    def generate_optional_parameters
+      attr = attributes[:optionalParameters]
+      return attr if attr.is_a?(Hash) && !attr.empty?
+
+      ''
     end
   end
 end
