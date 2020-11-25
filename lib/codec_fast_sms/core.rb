@@ -3,9 +3,10 @@
 module CodecFastSms
   # Core
   class Core
-    attr_accessor :connection, :profile, :response, :to, :message
-    def initialize(profile: :default)
+    attr_accessor :connection, :profile, :response, :to, :message, :attributes
+    def initialize(profile: :default, attributes: {})
       self.profile = profile
+      self.attributes = attributes
       # Firstly, create a connection object.
       self.connection = Faraday.new(
         url: ::CodecFastSms.configuration(profile).api_host
