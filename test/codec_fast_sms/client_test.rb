@@ -39,6 +39,20 @@ module CodecFastSms
       assert_equal 'Hello Recipient!', @client.params[:messageContent]
     end
 
+    def test_optional_parameters_must_be_blank
+      assert_equal '', @client.params[:optionalParameters]
+    end
+
+    def test_permission_filter_must_be_disabled
+      @client = ::CodecFastSms::Client.new(attributes:
+                                               permission_filter_disabled)
+
+      # For use perform method.
+      @client.assign_recipient_information('905990000000', 'Hello Recipient!')
+
+      assert @client.params[:optionalParameters][:DisablePermissionFilter]
+    end
+
     def test_otp_user_profile_must_be_run_successfully
       configure_otp_user
       @client = ::CodecFastSms::Client.new(profile: :otp_user)
@@ -78,6 +92,10 @@ module CodecFastSms
     def generate_timeout_stub_for_perform
       genarete_timeout_stub_for(::CodecFastSms.configuration.api_host,
                                 @client.request_uri, @client.params)
+    end
+
+    def permission_filter_disabled
+      { optionalParameters: { DisablePermissionFilter: true } }
     end
   end
 end
