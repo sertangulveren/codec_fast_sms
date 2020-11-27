@@ -69,7 +69,7 @@ puts client.response
 
 Use attributes to set other parameters:
 ```ruby
-optional_parameters = { optionalParameters: { disablePermissionFilter: true } }
+optional_parameters = { optionalParameters: '{ DisablePermissionFilter: true }' }
 client = CodecFastSms::Client.new(attributes: optional_parameters)
 ```
 
