@@ -50,7 +50,8 @@ module CodecFastSms
       # For use perform method.
       @client.assign_recipient_information('905990000000', 'Hello Recipient!')
 
-      assert @client.params[:optionalParameters][:DisablePermissionFilter]
+      assert_equal '{"DisablePermissionFilter":true}',
+                   @client.params[:optionalParameters]
     end
 
     def test_otp_user_profile_must_be_run_successfully
