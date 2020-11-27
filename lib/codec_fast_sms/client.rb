@@ -31,9 +31,9 @@ module CodecFastSms
 
     def generate_optional_parameters
       attr = attributes[:optionalParameters]
-      return attr if attr.is_a?(Hash) && !attr.empty?
+      return attr.to_json if attr.is_a?(Hash) && !attr.empty?
 
-      ''
+      attr.to_s
     end
   end
 end
