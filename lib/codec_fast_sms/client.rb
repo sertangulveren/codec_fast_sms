@@ -10,12 +10,20 @@ module CodecFastSms
 
     def params
       {
-        userName: ::CodecFastSms.configuration(profile).username,
-        password: ::CodecFastSms.configuration(profile).password,
-        sender: ::CodecFastSms.configuration(profile).sender,
+        userName: current_config.username,
+        password: current_config.password,
+        sender: current_config.sender,
         phone: to, messageContent: message, msgSpecialId: '', isOtn: 'True',
         headerCode: '', responseType: '3',
         optionalParameters: generate_optional_parameters
+      }.merge(iys_params)
+    end
+
+    def iys_params
+      {
+        iysMessageType: (attributes[:iys_message_type] || 'BILGILENDIRME'),
+        iysRecipientType: attributes[:iys_recipient_type].to_s,
+        iysBrandCode: attributes[:iys_brand_code].to_s
       }
     end
 
