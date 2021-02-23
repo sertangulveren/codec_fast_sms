@@ -27,5 +27,10 @@ module CodecFastSms
     end
 
     def params; end
+
+    # Get the configuration by profile
+    def current_config
+      ::CodecFastSms.configuration(profile)
+    end
   end
 end
