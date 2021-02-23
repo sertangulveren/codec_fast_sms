@@ -54,6 +54,28 @@ module CodecFastSms
                    @client.params[:optionalParameters]
     end
 
+    def test_iys_parameters_must_be_filled_default
+      @client = ::CodecFastSms::Client.new(attributes:
+                                             permission_filter_disabled)
+
+      assert_equal 'BILGILENDIRME', @client.params[:iysMessageType]
+      assert_equal '', @client.params[:iysBrandCode]
+      assert_equal '', @client.params[:iysRecipientType]
+    end
+
+    def test_iys_parameters_must_be_correct
+      attr = permission_filter_disabled
+      attr[:iys_message_type] = 'TICARI'
+      attr[:iys_brand_code] = '01'
+      attr[:iys_recipient_type] = 'ABC'
+
+      @client = ::CodecFastSms::Client.new(attributes: attr)
+
+      assert_equal attr[:iys_message_type], @client.params[:iysMessageType]
+      assert_equal attr[:iys_brand_code], @client.params[:iysBrandCode]
+      assert_equal attr[:iys_recipient_type], @client.params[:iysRecipientType]
+    end
+
     def test_otp_user_profile_must_be_run_successfully
       configure_otp_user
       @client = ::CodecFastSms::Client.new(profile: :otp_user)
