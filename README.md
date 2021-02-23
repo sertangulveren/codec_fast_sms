@@ -67,10 +67,27 @@ client.deliver(phone, message)
 puts client.response
 ```
 
-Use attributes to set other parameters:
+Use attributes to set permission parameters:
 ```ruby
-optional_parameters = { optionalParameters: '{ DisablePermissionFilter: true }' }
-client = CodecFastSms::Client.new(attributes: optional_parameters)
+attributes = { optionalParameters: '{ DisablePermissionFilter: true }' }
+client = CodecFastSms::Client.new(attributes: attributes)
+```
+
+Use attributes to set IYS parameters:
+
+`iys_message_type`: must take the value `TICARI` or `BILGILENDIRME`. In case the value is not given, it takes `BILGILENDIRME` value by default.
+
+`iys_brand_code`: If `iys_message_type` is set as `TICARI`, it must be filled.
+
+`iys_recipient_type`: If `iys_message_type` is set as `TICARI`, it must be filled.
+```ruby
+attributes = {
+  optionalParameters: '{ DisablePermissionFilter: true }',
+  iys_message_type: 'TICARI'
+  iys_brand_code: 'BC1'
+  iys_recipient_type: 'RT1'
+}
+client = CodecFastSms::Client.new(attributes: attributes)
 ```
 
 We can pass the profile argument on client initialization to use different configuration.
