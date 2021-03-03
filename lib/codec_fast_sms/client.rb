@@ -5,7 +5,7 @@ module CodecFastSms
   class Client < Core
     # Api endpoint.
     def request_uri
-      '/FastApi.asmx/SendSms'
+      '/Soap.asmx/SendSms'
     end
 
     def params
